@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.amap.api.location.AMapLocationClient;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.xiaolaogong.test.AppApplication;
 import com.xiaolaogong.test.net.base.RequestFactory;
@@ -13,6 +14,8 @@ import com.xiaolaogong.test.net.base.RequestFactory;
  */
 
 public class BaseActivity extends RxAppCompatActivity {
+
+    protected RxPermissions permissions;
 
     /**
      * 获取APP应用上下文
@@ -55,5 +58,16 @@ public class BaseActivity extends RxAppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        permissions = new RxPermissions(this);
+
     }
+
+    protected int getScreenHeight() {
+        return getAppApplication().getResources().getDisplayMetrics().heightPixels;
+    }
+
+    protected int getScreenWidth() {
+        return getAppApplication().getResources().getDisplayMetrics().widthPixels;
+    }
+
 }

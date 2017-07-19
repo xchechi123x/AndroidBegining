@@ -1,14 +1,18 @@
 package com.xiaolaogong.test.activities;
 
+import android.Manifest;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.common.logging.FLog;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.xiaolaogong.test.R;
-import com.xiaolaogong.test.net.base.ResponseObserver;
 import com.xiaolaogong.test.net.base.Response;
+import com.xiaolaogong.test.net.base.ResponseObserver;
 import com.xiaolaogong.test.net.requests.UserRequest;
 import com.xiaolaogong.test.net.resolve.user.User;
 
@@ -30,9 +34,31 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
+
         ButterKnife.bind(this);
-        getUser();
+
+
+        //申请授权
+        requestPermission();
+    }
+
+    private void requestPermission() {
+        permissions
+                .requestEach(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .subscribe(permission -> {
+                    if (permission.granted) {
+                        if (permission.name.equals(Manifest.permission.READ_PHONE_STATE)) {
+                        }
+                    } else if (permission.shouldShowRequestPermissionRationale) {
+                        if (permission.name.equals(Manifest.permission.READ_PHONE_STATE)) {
+                        }
+                    } else {
+                        if (permission.name.equals(Manifest.permission.READ_PHONE_STATE)) {
+                        }
+                    }
+                });
 
     }
 
@@ -46,8 +72,8 @@ public class MainActivity extends BaseActivity {
 
                     @Override
                     public void onNext(@NonNull Response<User> response) {
-                        Log.d(TAG, "request:" + response.data.name);
-                        Log.d(TAG, "request:" + response.data.password);
+                        FLog.d(TAG, "request:" + response.data.name);
+                        FLog.d(TAG, "request:" + response.data.password);
                         textView.setText(response.data.name);
                     }
 
@@ -58,14 +84,13 @@ public class MainActivity extends BaseActivity {
 
                     @Override
                     public void onComplete() {
-                        Log.d(TAG, "request:Complete" );
+                        Log.d(TAG, "request:Complete");
                     }
                 });
     }
 
     @OnClick(R.id.text)
     void textViewOnclick() {
-        Toast.makeText(getApplicationContext(), textView.getText(),
-                Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(MainActivity.this, CameraActivity.class));
     }
 }

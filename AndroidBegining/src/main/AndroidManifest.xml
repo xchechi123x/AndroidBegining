@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.xiaolaogong.test">
 
-
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <!--用于进行网络定位-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
@@ -24,8 +23,20 @@
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"></uses-permission>
     <!--用于申请获取蓝牙信息进行室内定位-->
     <uses-permission android:name="android.permission.BLUETOOTH"></uses-permission>
-
+    <!--蓝牙管理权限-->
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"></uses-permission>
+    <!--获取拍照权限-->
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <!--APP用到的特性依赖,必须有相机支持-->
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+    <!--APP用到的特性依赖,相机的自动对焦功能可以没有-->
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
 
     <application
         android:name=".AppApplication"
@@ -44,6 +55,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".activities.CameraActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
 
         <!--高德定位服务-->
         <service android:name="com.amap.api.location.APSService"></service>
