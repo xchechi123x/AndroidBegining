@@ -5,7 +5,7 @@
     android:background="#ffffff">
 
     <com.xiaolaogong.test.common.camera.LiveCameraView
-        android:id="@+id/surfaceView"
+        android:id="@+id/liveCameraView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
@@ -16,5 +16,16 @@
         android:layout_height="match_parent"
         android:layout_alignParentTop="true" />
 
+    <RelativeLayout
+        android:id="@+id/takePhotoLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <Button
+            android:id="@+id/takePicture"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/take_photo" />
+    </RelativeLayout>
 </FrameLayout>

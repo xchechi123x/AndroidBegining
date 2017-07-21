@@ -87,7 +87,7 @@ public class BottomLayout extends FrameLayout {
     private int bgStyle = BACKGROUND_STYLE_DEFAULT;
 
     /*item list*/
-    List<Item> itemList = new ArrayList();
+    List<Item> itemList = new ArrayList<>();
 
     /*tab list*/
     List<Tab> tabList = new ArrayList();

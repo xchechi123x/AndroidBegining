@@ -5,11 +5,14 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.Point;
-import android.util.Log;
+import android.os.Environment;
 import android.util.TypedValue;
 import android.view.WindowManager;
 
 import com.xiaolaogong.test.AppApplication;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Created by chechi on 2017/7/6.
@@ -104,5 +107,32 @@ public class Tools {
         editor.putBoolean(name, value);
         editor.commit();
         return value;
+    }
+
+
+    public static String getExtStorageDirectoryPath() {
+        return Environment.getExternalStorageDirectory().toString();
+    }
+
+    public static String makeStorageDirectory(String storageDirectory, String identity, boolean setTimeStamp) throws IOException {
+
+        String path = storageDirectory + "/" + identity;
+
+        if (setTimeStamp) {
+            long timeStamp = System.currentTimeMillis();
+            path = path + timeStamp;
+        }
+
+        File identityDir = new File(path);
+
+        if ((!identityDir.exists())) {
+            identityDir.mkdir();
+        }
+
+        return identityDir.getAbsolutePath() + "/";
+    }
+
+    public static String getStringTimestamp() {
+        return String.valueOf(System.currentTimeMillis());
     }
 }

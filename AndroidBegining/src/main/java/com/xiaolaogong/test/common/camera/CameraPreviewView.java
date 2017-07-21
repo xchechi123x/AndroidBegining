@@ -23,6 +23,11 @@ public class CameraPreviewView extends SurfaceView implements SurfaceHolder.Call
 
     protected Camera camera;
 
+    public Camera getCamera() {
+        return camera;
+    }
+
+
     public CameraPreviewView(Context context) {
         super(context);
         init();
@@ -44,9 +49,9 @@ public class CameraPreviewView extends SurfaceView implements SurfaceHolder.Call
     }
 
     @Override
-    public void surfaceCreated(SurfaceHolder holder) {
+    public void surfaceCreated(SurfaceHolder surfaceHolder) {
         Log.d(TAG, "Start preview display[SURFACE-CREATED]");
-        startPreviewDisplay(holder);
+        startPreviewDisplay(surfaceHolder);
     }
 
     @Override
@@ -63,28 +68,38 @@ public class CameraPreviewView extends SurfaceView implements SurfaceHolder.Call
     public void setCamera(Camera camera) {
         this.camera = camera;
         checkCamera();
-        final Camera.Parameters params = this.camera.getParameters();
-        params.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
-        params.setSceneMode(Camera.Parameters.SCENE_MODE_BARCODE);
+//        final Camera.Parameters params = this.camera.getParameters();
+//        params.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
+//        params.setSceneMode(Camera.Parameters.SCENE_MODE_BARCODE);
     }
 
     public void setPreviewReadyCallback(PreviewReadyCallback previewCallback) {
         previewReadyCallback = previewCallback;
     }
 
-    private void startPreviewDisplay(SurfaceHolder holder) {
+    /**
+     * 开启相机预览
+     *
+     * @param surfaceHolder
+     */
+    private void startPreviewDisplay(SurfaceHolder surfaceHolder) {
         checkCamera();
         try {
-            camera.setPreviewDisplay(holder);
+            camera.setPreviewDisplay(surfaceHolder);
             camera.startPreview();
         } catch (IOException e) {
             Log.e(TAG, "Error while START preview for camera", e);
         }
+
+        //预览开始监听回调
         if (previewReadyCallback != null) {
             previewReadyCallback.onStarted(camera);
         }
     }
 
+    /**
+     * 停止相机预览
+     */
     private void stopPreviewDisplay() {
         checkCamera();
         try {
@@ -92,6 +107,8 @@ public class CameraPreviewView extends SurfaceView implements SurfaceHolder.Call
         } catch (Exception e) {
             Log.e(TAG, "Error while STOP preview for camera", e);
         }
+
+        //预览时间监听回调
         if (previewReadyCallback != null) {
             previewReadyCallback.onStopped();
         }

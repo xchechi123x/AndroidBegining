@@ -5,10 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.facebook.common.logging.FLog;
-import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.xiaolaogong.test.R;
 import com.xiaolaogong.test.net.base.Response;
@@ -29,7 +27,6 @@ public class MainActivity extends BaseActivity {
 
     @BindView(R.id.text)
     TextView textView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -38,7 +35,6 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
-
 
         //申请授权
         requestPermission();

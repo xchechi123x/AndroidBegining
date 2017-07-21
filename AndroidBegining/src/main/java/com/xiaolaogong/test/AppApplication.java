@@ -14,9 +14,9 @@ import okhttp3.Cache;
 
 public class AppApplication extends Application {
 
-    public final String VERSION = "0.1.0";
-
     public final static String SHARED_PREFERENCE_NAME = "SC_SHARED_PREFERENCE";
+
+    public final String VERSION = "0.1.0";
 
     public final String baseUri = "http://192.168.1.127:3100";
 

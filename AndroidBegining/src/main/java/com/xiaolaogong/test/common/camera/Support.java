@@ -10,7 +10,14 @@ import android.graphics.Rect;
 import android.graphics.YuvImage;
 import android.hardware.Camera;
 
+import com.xiaolaogong.test.common.tasks.SavePicAsyncTask;
+import com.xiaolaogong.test.common.tools.Tools;
+
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -77,15 +84,15 @@ public final class Support {
     }
 
     /**
-     * 开启默认后置摄像头
+     * 开启默认后置摄像头,不对相机参数做任何修改
      *
      * @return Camera
      */
     public static Camera openBackDefault() {
         final int numberOfCameras = Camera.getNumberOfCameras();
         int defaultCameraId = 0;
+        final Camera.CameraInfo info = new Camera.CameraInfo();
         for (int i = 0; i < numberOfCameras; i++) {
-            final Camera.CameraInfo info = new Camera.CameraInfo();
             Camera.getCameraInfo(i, info);
             if (info.facing == Camera.CameraInfo.CAMERA_FACING_BACK) {
                 defaultCameraId = i;
@@ -110,6 +117,13 @@ public final class Support {
         }
     }
 
+    /**
+     * 相机预览捕获
+     *
+     * @param camera
+     * @param data
+     * @return
+     */
     public static Bitmap previewCapture(Camera camera, byte[] data) {
         final Camera.Parameters parameters = camera.getParameters();
         final int width = parameters.getPreviewSize().width;
@@ -129,5 +143,39 @@ public final class Support {
         return Bitmap.createBitmap(src, offsetX, offsetY, targetWH, targetWH, matrix, true);
     }
 
+    public static String saveTakePicture(String dir, String name, int saveType, byte[] data) throws IOException {
+
+        //创建存储的目录
+        String path = Tools.makeStorageDirectory(Tools.getExtStorageDirectoryPath(), dir, false);
+
+        String ext = ".png";
+
+        switch (saveType) {
+
+            case SavePicAsyncTask.SAVE_TYPE_PNG:
+                savePicture(path, name, SavePicAsyncTask.EXT_PNG, Bitmap.CompressFormat.PNG, data);
+                ext = SavePicAsyncTask.EXT_PNG;
+                break;
+            case SavePicAsyncTask.SAVE_TYPE_JPG:
+                savePicture(path, name, SavePicAsyncTask.EXT_JPEG, Bitmap.CompressFormat.JPEG, data);
+                ext = SavePicAsyncTask.EXT_JPEG;
+                break;
+            default:
+                savePicture(path, name, SavePicAsyncTask.EXT_PNG, Bitmap.CompressFormat.PNG, data);
+        }
+
+        //返回保存图片的全路基,便于图片的后续处理,比如展现
+        return path + name + ext;
+    }
+
+    private static void savePicture(String path, String name, String extension, Bitmap.CompressFormat type, byte[] data) throws IOException {
+        Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+        String fullPath = path + name + extension;
+        File file = new File(fullPath);
+        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
+        bitmap.compress(type, 80, bos);
+        bos.flush();
+        bos.close();
+    }
 
 }

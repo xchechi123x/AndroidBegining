@@ -15,6 +15,8 @@ public class LiveCameraView extends CameraPreviewView {
 
     private static final String TAG = LiveCameraView.class.getSimpleName();
 
+    private CaptureCallback captureCallback;
+
     public LiveCameraView(Context context) {
         super(context);
     }
@@ -27,8 +29,6 @@ public class LiveCameraView extends CameraPreviewView {
         super(context, attrs, defStyleAttr);
     }
 
-    private CaptureCallback captureCallback;
-
     private final Camera.PreviewCallback previewCallback = new Camera.PreviewCallback() {
         @Override
         public void onPreviewFrame(byte[] data, Camera camera) {
@@ -39,6 +39,9 @@ public class LiveCameraView extends CameraPreviewView {
 
     private final DelayedFocusLooper focusLooper = new DelayedFocusLooper() {
 
+        /**
+         * 相机自动对焦回调
+         */
         private final Camera.AutoFocusCallback handler = new Camera.AutoFocusCallback() {
             @Override
             public void onAutoFocus(boolean success, Camera camera) {
@@ -57,12 +60,15 @@ public class LiveCameraView extends CameraPreviewView {
     };
 
     @Override
-    public void surfaceCreated(SurfaceHolder holder) {
+    public void surfaceCreated(SurfaceHolder surfaceHolder) {
+        //设置系统相机实例,默认调用后端相机
         camera = Support.openBackDefault();
-        if (camera != null) {
+
+        //设置相机实例,针对相机的所有操作都是基于这个相机实例
+        if (this.camera != null) {
             setCamera(camera);
         }
-        super.surfaceCreated(holder);
+        super.surfaceCreated(surfaceHolder);
     }
 
     @Override

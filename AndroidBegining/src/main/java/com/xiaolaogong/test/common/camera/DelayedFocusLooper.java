@@ -14,39 +14,41 @@ public abstract class DelayedFocusLooper {
 
     private static final int MSG_FOCUS = 999;
 
-    private final Handler mDelayedHandler = new Handler(new Handler.Callback() {
+    private boolean canNextFocus = false;
+
+    private int period = 1000;
+
+    private final Handler delayedHandler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
             Log.i(TAG, "-> Call auto focus");
             callAutoFocus();
-            if (mCanNextFocus) {
-                sendNextAutoFocus(mPeriod);
+            if (canNextFocus) {
+                sendNextAutoFocus(period);
             }
             return true;
         }
     });
 
-    private boolean mCanNextFocus = false;
-    private int mPeriod = 1000;
 
     public void start(int period) {
-        mCanNextFocus = true;
-        mPeriod = Math.abs(period);
+        canNextFocus = true;
+        this.period = Math.abs(period);
         Log.i(TAG, "-> Start auto focus with period: " + period);
         sendNextAutoFocus(0/*first: no delay*/);
     }
 
     public void stop() {
         Log.i(TAG, "-> Stop auto focus");
-        mCanNextFocus = false;
-        mDelayedHandler.removeMessages(MSG_FOCUS);
+        canNextFocus = false;
+        delayedHandler.removeMessages(MSG_FOCUS);
     }
 
     private void sendNextAutoFocus(int period) {
         if (period == 0) {
-            mDelayedHandler.sendEmptyMessage(MSG_FOCUS);
+            delayedHandler.sendEmptyMessage(MSG_FOCUS);
         } else {
-            mDelayedHandler.sendEmptyMessageDelayed(MSG_FOCUS, period);
+            delayedHandler.sendEmptyMessageDelayed(MSG_FOCUS, period);
         }
     }
 
