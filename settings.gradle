@@ -1,1 +1,1 @@
-include ':AndroidBegining'
+include ':app', ':nav-bar'

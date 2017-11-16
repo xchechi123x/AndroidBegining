@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="照相"
+        android:textSize="12pt"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/goUser"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="用户"
+        android:textSize="12pt"
+        android:gravity="center" />
+
+    <Button
+        android:id="@+id/test_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="测试视图" />
+
+    <Button
+        android:id="@+id/user_goods"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="用户GOODS" />
+
+</LinearLayout>
