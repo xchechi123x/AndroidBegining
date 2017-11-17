@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.xiaolaogong.test.R;
-import com.xiaolaogong.test.adapter.UserGoodsAdapter;
 import com.xiaolaogong.test.adapter.UserGoodsRecyclerAdapter;
 
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ import java.util.List;
  * Created by chechi on 2017/8/26.
  */
 
-public class UserGoodsFragment extends Fragment {
+public class UserFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
 
@@ -31,13 +30,11 @@ public class UserGoodsFragment extends Fragment {
 
     private String mTitle;
 
-    public static UserGoodsFragment getInstance(String title) {
+    public static UserFragment newInstance() {
 
-        UserGoodsFragment userGoodsFragment = new UserGoodsFragment();
+        UserFragment userGoodsFragment = new UserFragment();
 
         Bundle bundle = new Bundle();
-
-        bundle.putString(ARG_TITLE, title);
 
         userGoodsFragment.setArguments(bundle);
 

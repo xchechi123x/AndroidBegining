@@ -11,7 +11,7 @@ import com.xiaolaogong.test.R;
 import com.xiaolaogong.test.adapter.UserGoodsAdapter;
 import com.xiaolaogong.test.common.tools.IntentUtils;
 import com.xiaolaogong.test.custom.layout.CoordinatorTabLayout;
-import com.xiaolaogong.test.fragment.UserGoodsFragment;
+import com.xiaolaogong.test.fragment.UserFragment;
 
 import java.util.ArrayList;
 
@@ -57,7 +57,7 @@ public class ActivityUserGoods extends AppCompatActivity {
     private void initFragments() {
         mFragments = new ArrayList<>();
         for (String title : mTitles) {
-            mFragments.add(UserGoodsFragment.getInstance(title));
+            mFragments.add(UserFragment.newInstance());
         }
     }
 
