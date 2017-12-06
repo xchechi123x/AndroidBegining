@@ -2,6 +2,7 @@ package com.xiaolaogong.test.activities;
 
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.view.MenuItem;
 
 import com.xiaolaogong.navbar.BottomBarHolderActivity;
 import com.xiaolaogong.navbar.NavigationPage;
@@ -45,5 +46,10 @@ public class MainActivity extends BottomBarHolderActivity {
         navigationPages.add(user);
 
         super.setupBottomBarHolderActivity(navigationPages);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return true;
     }
 }

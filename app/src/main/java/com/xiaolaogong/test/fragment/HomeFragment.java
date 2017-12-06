@@ -11,8 +11,6 @@ import com.xiaolaogong.test.R;
 
 public class HomeFragment extends Fragment {
 
-    public static final String TAG = "home";
-
     public HomeFragment() {
 
     }

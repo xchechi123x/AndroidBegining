@@ -5,4 +5,8 @@
     <color name="colorAccent">#FF4081</color>
     <color name="white">#ffffffff</color>
     <color name="blue">#2196F3</color>
+
+    <color name="colorPrimary_light">#673ab7</color><!-- Deep Purple 500 -->
+    <color name="colorPrimaryDark_light">#512da8</color><!-- Deep Purple 700 -->
+    <color name="colorAccent_light">#ff4081</color><!-- Pink A200 -->
 </resources>

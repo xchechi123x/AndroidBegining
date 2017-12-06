@@ -6,6 +6,7 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.xiaolaogong.test.net.base.RequestFactory;
 
+
 import okhttp3.Cache;
 
 /**
@@ -13,6 +14,8 @@ import okhttp3.Cache;
  */
 
 public class AppApplication extends Application {
+
+    public static AppApplication instance;
 
     public final static String SHARED_PREFERENCE_NAME = "SC_SHARED_PREFERENCE";
 
@@ -30,8 +33,8 @@ public class AppApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Cache cache = new Cache(getCacheDir(), 1024 * 1024 * 10);
-        requestFactory = RequestFactory.getInstance(baseUri, cache);
+        instance = this;
+        requestFactory = RequestFactory.getInstance(baseUri);
         locationClient = new AMapLocationClient(getApplicationContext());
         locationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
         locationOption.setInterval(20000);
