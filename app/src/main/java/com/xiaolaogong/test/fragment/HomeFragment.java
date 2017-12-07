@@ -4,6 +4,7 @@ package com.xiaolaogong.test.fragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.xiaolaogong.test.R;
+import com.xiaolaogong.test.adapter.home.HomeAdapter;
 
 public class HomeFragment extends Fragment {
 
@@ -46,12 +48,24 @@ public class HomeFragment extends Fragment {
     }
 
     private void initializeRecyclerView() {
-        recyclerView = (RecyclerView) getView().findViewById(R.id.recycler_view);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(linearLayoutManager);
 
         SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) getView().findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setEnabled(true);
+
+        recyclerView = (RecyclerView) getView().findViewById(R.id.recycler_view);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        HomeAdapter adapter = new HomeAdapter();
+
+        recyclerView.setAdapter(adapter);
+
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        adapter.notifyDataSetChanged();
+
+
     }
 
 

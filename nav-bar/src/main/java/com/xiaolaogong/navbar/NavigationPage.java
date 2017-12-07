@@ -3,13 +3,6 @@ package com.xiaolaogong.navbar;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 
-/**
- * A base class that holds the title, icon and an instance of the fragment to be shown as each
- * Navigation page
- * <p>
- * Created by Adib on 15-Apr-17.
- */
-
 public class NavigationPage {
 
     private String title;
